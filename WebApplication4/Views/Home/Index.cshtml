@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+@model WebApplication4.Models.RootObject
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mason Theme - Timeline</title>
+
+    <link rel="stylesheet" href="~/fonts.googleapis.com/css?family=Open+Sans:300,400">   <!-- Google web font "Open Sans", https://fonts.google.com/ -->
+    <link rel="stylesheet" href="~/font-awesome-4.7.0/css/font-awesome.min.css">           <!-- Font Awesome, http://fontawesome.io/ -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">                                 <!-- Bootstrap styles, https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="~/css/tooplate-style.css">                              <!-- Templatemo style -->
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="tm-body">
+            <div class="tm-sidebar sticky">
+               
+                    <div class="tm-banner-inner">
+                       
+                        <h1 class="tm-banner-title">NEWS</h1>
+                        <p class="tm-banner-subtitle">From UK</p>
+                    </div>
+            
+                <nav class="tm-main-nav">
+                    <ul class="tm-main-nav-ul">
+                        @for (int i = 0; i < 7; i++)
+                        {
+
+                        
+                        <li class="tm-nav-item">
+                            <a href="" class="tm-nav-item-link tm-button">@(DateTime.Today.AddDays(-i).ToShortDateString())</a>
+                        </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+
+
+            @for (int i = 0; i < Model.articles.Count; i++)
+            {
+                <div class="tm-main-content">
+
+
+
+                    <div class="row mb-5">
+                        <div class="media tm-flexbox-ie-fix tm-width-ie-fix">
+                            <div class="tm-media-img-container">
+                                <div class="text-center pt-31 pb-31 tm-timeline-date tm-bg-pink">@Model.articles.ElementAt(i).publishedAt.ToShortDateString()</div>
+                                <img class="d-flex img-fluid" src="@Model.articles.ElementAt(i).urlToImage" alt="Generic placeholder image">
+                            </div>
+
+                            <div class="media-body tm-flexbox-ie-fix tm-width-ie-fix tm-bg-light-gray">
+                                <div class="p-5">
+                                    <h1 class="mb-4 mt-0 tm-blue-text tm-timeline-item-title"></h1>
+                                    <p class="mb-4">
+                                        <b>@Model.articles.ElementAt(i).title</b>
+                                    </p>
+                                    <p>
+                                        @if (Model.articles.ElementAt(i).description == "")
+                                        {
+                                            <text>Description of API is empty</text>
+                                        }
+                                        else
+                                        {
+                                            @Model.articles.ElementAt(i).description
+                                        }
+                                    </p>
+
+                                    <a href="@Model.articles.ElementAt(i).url" class="btn btn-primary tm-button-rounded tm-button-pink tm-button-no-border tm-button-normal tm-button-timeline">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- row -->
+
+
+
+                </div> }
+            <!-- load JS files -->
+            <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+            <script>
+
+
+                $(document).ready(function () {
+                    // Update the current year in copyright
+                    $('.tm-current-year').text(new Date().getFullYear());
+                });
+
+            </script>
+</body>
+
+</html>
